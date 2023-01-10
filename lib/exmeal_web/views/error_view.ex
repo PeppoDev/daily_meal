@@ -26,6 +26,14 @@ defmodule ExmealWeb.ErrorView do
     %{message: result}
   end
 
+  def render("500.json", _result) do
+    %{errors: %{detail: "Internal Server Error"}}
+  end
+
+  def render("404.json", _result) do
+    %{errors: %{detail: "Not Found"}}
+  end
+
   def translate_errors(changeset) do
     traverse_errors(changeset, fn {msg, opts} ->
       Enum.reduce(opts, msg, fn {key, result}, acc ->
